@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}LexiFlow - AI Results{% endblock %}
+
+{% block content %}
+    <h1 class="text-center mb-4">AI Results</h1>
+
+    <!-- Card for the Internal Summary -->
+    <div class="card mb-4 shadow-sm">
+        <div class="card-header">
+            <h3>Internal Summary</h3>
+        </div>
+        <div class="card-body">
+            <p class="fst-italic text-muted">{{ result_data.summary }}</p>
+        </div>
+    </div>
+
+    <!-- Card for the Client-Facing Draft -->
+    <div class="card shadow-sm">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h3>Draft Email to Client</h3>
+            <!-- "Copy" button styled with Bootstrap -->
+            <button class="btn btn-success" onclick="copyDraft()">Copy Draft</button>
+        </div>
+        <div class="card-body">
+            <!-- 'pre-wrap' ensures the text formatting is respected -->
+            <pre id="email-draft" style="white-space: pre-wrap; font-family: inherit; font-size: 1rem;">{{ result_data.draft }}</pre>
+        </div>
+    </div>
+
+    <!-- "Go Back" link styled as a secondary button -->
+    <div class="text-center mt-4">
+        <a href="/" class="btn btn-secondary">← Process Another Inquiry</a>
+    </div>
+
+    <!-- The JavaScript for the copy button can stay here -->
+    <script>
+        function copyDraft() {
+            const draftText = document.getElementById('email-draft').innerText;
+            navigator.clipboard.writeText(draftText).then(() => {
+                alert('Email draft copied to clipboard!');
+            }).catch(err => {
+                console.error('Failed to copy text: ', err);
+            });
+        }
+    </script>
+{% endblock %}

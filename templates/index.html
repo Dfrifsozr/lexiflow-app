@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}LexiFlow - AI Intake Assistant{% endblock %}
+
+{% block content %}
+    <!-- Use a Bootstrap Card for a clean container -->
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <h1 class="card-title text-center mb-4">LexiFlow AI Intake Assistant</h1>
+            
+            <!-- Display error message in a Bootstrap alert -->
+            {% if error %}
+                <div class="alert alert-danger" role="alert">
+                    <strong>Error:</strong> {{ error }}
+                </div>
+            {% endif %}
+
+            <p class="text-muted">Paste the full client inquiry email below. The AI will generate an internal summary and a draft reply.</p>
+
+            <form action="/summarize" method="POST">
+                <!-- Form Group for the Text Area -->
+                <div class="mb-3">
+                    <label for="client_email_text" class="form-label">Client Inquiry:</label>
+                    <textarea class="form-control" id="client_email_text" name="client_email_text" rows="8" placeholder="Paste client email here..."></textarea>
+                </div>
+
+                <!-- Form Group for the Scheduling Link -->
+                <div class="mb-3">
+                    <label for="scheduling_link" class="form-label">Your Scheduling Link:</label>
+                    <input type="text" class="form-control" id="scheduling_link" name="scheduling_link" placeholder="https://calendly.com/your-firm/15min">
+                </div>
+                
+                <!-- Full-width, large primary button -->
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-primary btn-lg">Generate with AI</button>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
